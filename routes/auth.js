@@ -3,7 +3,7 @@ var bcrypt = require("bcrypt-inzi");
 var jwt = require('jsonwebtoken');
 var postmark = require("postmark");
 var { SERVER_SECRET } = require("../core/index");
-var client = new postmark.Client("");
+var client = new postmark.Client("b13e0642-c597-4c7d-a9d7-ca1d3cb3a3a2");
 
 
 var { userModle, otpModel } = require("../dbrepo/modles");
@@ -52,13 +52,15 @@ api.post('/signup', (req, res, next) => {
 
                 newUaser.save((err, data) => {
                     if (!err) {
-                        res.status(200).send({
-                            message: "User created"
+                        res.send({
+                            message: "User created",
+                            status:200
                         })
                     } else {
                         console.log(err)
-                        res.status(403).send({
-                            message: "user already exist"
+                        res.send({
+                            message: "user already exist",
+                            status:403
                         })
                     };
 
@@ -68,13 +70,15 @@ api.post('/signup', (req, res, next) => {
 
 
         } else if (err){
-            res.status(500).send({
-                message:"db error"
+            res.send({
+                message:"db error",
+                status:500
             })
         } else {
 
-            res.status(403).send({
-                message: "User already exist"
+            res.send({
+                message: "User already exist",
+                status:403
             })
         }
     })
@@ -131,8 +135,9 @@ api.post("/login", (req, res, next) => {
                             httpOnly: true
                         });
 
-                        res.status(200).send({
+                        res.send({
                             message: "login success",
+                            status:200,
 
                             loginRequestUser: {
                                 name: loginRequestUser.name,
@@ -143,8 +148,9 @@ api.post("/login", (req, res, next) => {
 
                     } else {
                         console.log('not matched')
-                        res.status(404).send({
-                            message: "Incorrect password"
+                        res.send({
+                            message: "Incorrect password",
+                            status: 404
                         })
                     }
                 }).catch(e => {

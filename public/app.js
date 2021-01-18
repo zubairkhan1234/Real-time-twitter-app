@@ -3,6 +3,12 @@
 
 const url = 'http://localhost:5000';
 
+var socket = io(url);
+
+socket.on('connect', function () {
+    console.log("connected")
+});
+
 
 
 
@@ -63,11 +69,15 @@ function login() {
     })
 
         .then(function (response) {
-            alert(response.data.message)
-            window.location = "/home.html"
+            console.log(response);
+            if (response.data.status === 200) {
+                alert(response.data.message)
+                location.href = "./home.html"
+            } else {
+                alert(response.data.message)
+            }
         })
         .catch(function (error) {
-
             alert(error.response.data.message)
         });
 
@@ -94,7 +104,7 @@ function forgetPassword() {
 
     }).then((response) => {
         console.log(response)
-        if (response.data.status == 200) {
+        if (response.data.status === 200) {
             alert(response.data.message)
             window.location.href = "./passwordVarification.html"
         } else {
@@ -201,9 +211,7 @@ function logout() {
 function tweet(){
     // alert("jdsljfa")
     var tweet = document.getElementById('message').value
-    // var userEmail = localStorage.getItem("userEmail")
-    // console.log(tweet)
-    // console.log(userEmail)
+
     axios({
         method: 'post',
         url: url + '/tweet',
@@ -214,8 +222,7 @@ function tweet(){
         },
         withCredentials: true
     })
-        .then(function (response) {
-            alert(response.data.message)
+    .then(function (response) {
         })
         .catch(function (error) {
 
@@ -224,3 +231,60 @@ function tweet(){
 
 
 }
+
+
+
+function getTweets() {
+    axios({
+        method: 'get',
+        url: url + '/getTweets',
+        credentials: 'include',
+    }).then((response) => {
+        let tweets = response.data;
+        let html = ""
+        tweets.forEach(element => {
+            html += `
+            <div class="tweet">
+            <p>${element.name}<p>
+            <p class="tweet-date">${new Date(element.createdOn).toLocaleTimeString()}</p>
+            <p class="tweet-text">${element.tweets}</p>
+            </div>
+            `
+        });
+        document.getElementById('text-area').innerHTML = html;
+
+        let userTweet = response.data
+        
+        let userHtml = ""
+        let userName = document.getElementById('pName').innerHTML;
+        userTweet.forEach(element => {
+            if (element.name == userName) {
+                userHtml += `
+                <div class="tweet">
+                <p>${element.name}<p>
+                <p class="tweet-date">${new Date(element.createdOn).toLocaleTimeString()}</p>
+                <p class="tweet-text">${element.tweets}</p>
+                </div>
+                `
+            }
+        });
+        document.getElementById('text-area').innerHTML = userHtml;
+    }, (error) => {
+        console.log(error.message);
+    });
+    return false
+}
+
+
+socket.on('NEW_POST', (newPost) => {
+    console.log(newPost)
+    let tweets = newPost;
+    document.getElementById('text-area').innerHTML += `
+    <div class="tweet">
+    <p>${newPost.name}<p>
+    <p class="tweet-date">${new Date(tweets.createdOn).toLocaleTimeString()}</p>
+    <p class="tweet-text">${tweets.tweet}</p>
+    </div>
+    `
+
+})

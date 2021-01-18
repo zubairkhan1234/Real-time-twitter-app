@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="style.css">
-
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="socket.io.js"></script>
+    <title>Document</title>
+    
 </head>
-<body onload="userData()">
+<body onload="userData(); getProfile(); getTweets(); getUsers()">
 
     <h1>This is Home page</h1>
 
@@ -22,12 +24,12 @@
 
 
     <div class="chatpp">
-        <div class="text-area">
-
-        </div>
         <div>
             <input type="text" name="" id="message" style="margin:5px ;" placeholder="Type your message"> 
             <button onclick=" return tweet()" >Post</button>
+        </div>
+        <div id="text-area">
+
         </div>
     </div>
     

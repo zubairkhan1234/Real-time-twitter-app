@@ -5,26 +5,22 @@ var bodyParser = require('body-parser');
 var path = require("path");
 var jwt = require('jsonwebtoken');
 var cookieParser = require('cookie-parser');
-
 var { userModle, tweetmodel } = require("./dbrepo/modles");
-var authRoutes = require("./routes/auth")
-console.log(userModle)
+var app = express();
+var authRoutes = require('./routes/auth')
+var  {SERVER_SECRET}  = require("./core/index");
 
 var http = require("http");
 var socketIO = require("socket.io");
 var server = http.createServer(app);
 var io = socketIO(server);
 
-io.on("connection", () => {
-    console.log("chl gya");
+io.on("connection",()=>{
+    console.log("user Connected");
 })
-
-var { SERVER_SECRET } = require("./core/index");
-
 const PORT = process.env.PORT || 5000;
 
 
-var app = express()
 app.use(cors({
     origin: '*',
     credentials: true
@@ -32,8 +28,8 @@ app.use(cors({
 app.use(morgan('dev'))
 app.use(bodyParser.json())
 app.use(cookieParser())
-app.use("/", express.static(path.resolve(path.join(__dirname, "public"))));
 app.use('/', authRoutes)
+app.use("/", express.static(path.resolve(path.join(__dirname, "public"))));
 
 app.use(function (req, res, next) {
     console.log('cookie', req.cookies)
@@ -98,7 +94,7 @@ app.get('/Profile', (req, res, next) => {
 })
 
 app.post('/tweet', (req, res, next) => {
-    console.log(req.body)
+    // console.log(req.body)
 
     if (!req.body.userName && !req.body.tweet || !req.body.userEmail ) {
         res.status(403).send({
@@ -107,7 +103,7 @@ app.post('/tweet', (req, res, next) => {
     }
     var newTweet = new tweetmodel({
         "name": req.body.userName,
-        "tweets": req.body.tweet
+        "tweet": req.body.tweet
     })
     newTweet.save((err, data) => {
         if (!err) {
@@ -116,7 +112,7 @@ app.post('/tweet', (req, res, next) => {
                 message: "Post created",
                 data: data
             })
-            console.log(data.tweets)
+            console.log(data.tweet)
             io.emit("NEW_POST", data)
         } else {
             console.log(err);
@@ -127,10 +123,25 @@ app.post('/tweet', (req, res, next) => {
     });
 })
 
+app.get('/getTweets', (req, res, next) => {
+
+    tweetmodel.find({}, (err, data) => {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            console.log(data)
+            // data = data[data.length -1]
+            res.send(data)
+        }
+    })
+})
 
 
 
-app.listen(PORT, () => {
+
+
+server.listen(PORT, () => {
     console.log("surver is running on : ", PORT)
 });
 

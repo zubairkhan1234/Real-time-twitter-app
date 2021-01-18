@@ -61,8 +61,9 @@ var otpSchema = new mongoose.Schema({
 var otpModel = mongoose.model("otps", otpSchema);
 
 var tweetSchema = new mongoose.Schema({
+    "tweet": String,
+    "name": String,
     "email": String,
-    "otpCode": String,
     "createdOn": { "type": Date, "default": Date.now },
 });
 var tweetmodel = mongoose.model("tweet", tweetSchema);
