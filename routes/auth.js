@@ -3,7 +3,7 @@ var bcrypt = require("bcrypt-inzi");
 var jwt = require('jsonwebtoken');
 var postmark = require("postmark");
 var { SERVER_SECRET } = require("../core/index");
-var client = new postmark.Client("b13e0642-c597-4c7d-a9d7-ca1d3cb3a3a2");
+var client = new postmark.Client("");
 
 
 var { userModle, otpModel } = require("../dbrepo/modles");
