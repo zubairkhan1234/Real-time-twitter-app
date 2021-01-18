@@ -65,10 +65,10 @@ var tweetSchema = new mongoose.Schema({
     "otpCode": String,
     "createdOn": { "type": Date, "default": Date.now },
 });
-var tweetSchema = mongoose.model("tweet", tweetSchema);
+var tweetmodel = mongoose.model("tweet", tweetSchema);
 
 module.exports = {
     userModle: userModle,
     otpModel: otpModel,
-    tweetSchema:tweetSchema
+    tweetmodel:tweetmodel
 }

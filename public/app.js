@@ -208,9 +208,9 @@ function tweet(){
         method: 'post',
         url: url + '/tweet',
         data: {
-            tweet: loginEmail,
+            tweet: tweet,
             userEmail: sessionStorage.getItem("userEmail"),
-            userName:sessionStorage0.getItem("userName")
+            userName:sessionStorage.getItem("userName")
         },
         withCredentials: true
     })

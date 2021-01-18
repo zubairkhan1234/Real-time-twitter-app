@@ -6,9 +6,18 @@ var path = require("path");
 var jwt = require('jsonwebtoken');
 var cookieParser = require('cookie-parser');
 
-var {userModle, messageModel} = require("./dbrepo/modles");
+var { userModle, tweetmodel } = require("./dbrepo/modles");
 var authRoutes = require("./routes/auth")
 console.log(userModle)
+
+var http = require("http");
+var socketIO = require("socket.io");
+var server = http.createServer(app);
+var io = socketIO(server);
+
+io.on("connection", () => {
+    console.log("chl gya");
+})
 
 var { SERVER_SECRET } = require("./core/index");
 
@@ -88,9 +97,34 @@ app.get('/Profile', (req, res, next) => {
 
 })
 
-api.post("/tweet",( req, res, next) =>{
-    console.log("zszzzzzz", req.body)
-    
+app.post('/tweet', (req, res, next) => {
+    console.log(req.body)
+
+    if (!req.body.userName && !req.body.tweet || !req.body.userEmail ) {
+        res.status(403).send({
+            message: "please provide email or tweet/message"
+        })
+    }
+    var newTweet = new tweetmodel({
+        "name": req.body.userName,
+        "tweets": req.body.tweet
+    })
+    newTweet.save((err, data) => {
+        if (!err) {
+            res.send({
+                status: 200,
+                message: "Post created",
+                data: data
+            })
+            console.log(data.tweets)
+            io.emit("NEW_POST", data)
+        } else {
+            console.log(err);
+            res.status(500).send({
+                message: "user create error, " + err
+            })
+        }
+    });
 })
 
 
