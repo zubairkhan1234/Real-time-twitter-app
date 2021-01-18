@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body onload="userData()">
+
+    <h1>This is Home page</h1>
+
+
+    <div>
+        <div id="userName"></div>
+        <div id="userEmail"></div>
+        <div id="userPhone"></div>
+    </div>
+    <button onclick="return logout()">Log out</button>
+
+
+    <div class="chatpp">
+        <div class="text-area">
+
+        </div>
+        <div>
+            <input type="text" name="" id="message" style="margin:5px ;" placeholder="Type your message"> 
+            <button onclick=" return tweet()" >Post</button>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
