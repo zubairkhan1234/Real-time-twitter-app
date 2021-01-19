@@ -172,9 +172,9 @@ function userData() {
 
     }).then((response) => {
 
-        document.getElementById('userName').innerText = response.data.profile.name
-        document.getElementById('userEmail').innerText = response.data.profile.email
-        document.getElementById('userPhone').innerText = response.data.profile.phone
+        document.getElementById('userName').innerText = "User Name : " + response.data.profile.name
+        document.getElementById('userEmail').innerText = "User Email : " + response.data.profile.email
+        document.getElementById('userPhone').innerText = "Phone Number : " + response.data.profile.phone
         sessionStorage.setItem("userEmail", response.data.profile.email)
         sessionStorage.setItem("userName", response.data.profile.name)
     }, (err) => {
@@ -234,46 +234,46 @@ function tweet(){
 
 
 
-function getTweets() {
-    axios({
-        method: 'get',
-        url: url + '/getTweets',
-        credentials: 'include',
-    }).then((response) => {
-        let tweets = response.data;
-        let html = ""
-        tweets.forEach(element => {
-            html += `
-            <div class="tweet">
-            <p>${element.name}<p>
-            <p class="tweet-date">${new Date(element.createdOn).toLocaleTimeString()}</p>
-            <p class="tweet-text">${element.tweets}</p>
-            </div>
-            `
-        });
-        document.getElementById('text-area').innerHTML = html;
+// function getTweets() {
+//     axios({
+//         method: 'get',
+//         url: url + '/getTweets',
+//         credentials: 'include',
+//     }).then((response) => {
+//         let tweets = response.data;
+//         let html = ""
+//         tweets.forEach(element => {
+//             html += `
+//             <div class="tweet">
+//             <p class="user-name">${element.name}<p>
+//             <p class="tweet-date">${new Date(element.createdOn).toLocaleTimeString()}</p>
+//             <p class="tweet-text">${element.tweets}</p>
+//             </div>
+//             `
+//         });
+//         document.getElementById('text-area').innerHTML = html;
 
-        let userTweet = response.data
+//         let userTweet = response.data
         
-        let userHtml = ""
-        let userName = document.getElementById('pName').innerHTML;
-        userTweet.forEach(element => {
-            if (element.name == userName) {
-                userHtml += `
-                <div class="tweet">
-                <p>${element.name}<p>
-                <p class="tweet-date">${new Date(element.createdOn).toLocaleTimeString()}</p>
-                <p class="tweet-text">${element.tweets}</p>
-                </div>
-                `
-            }
-        });
-        document.getElementById('text-area').innerHTML = userHtml;
-    }, (error) => {
-        console.log(error.message);
-    });
-    return false
-}
+//         let userHtml = ""
+//         let userName = document.getElementById('pName').innerHTML;
+//         userTweet.forEach(element => {
+//             if (element.name == userName) {
+//                 userHtml += `
+//                 <div class="tweet">
+//                 <p class="user-name">${element.name}<p>
+//                 <p class="tweet-date">${new Date(element.createdOn).toLocaleTimeString()}</p>
+//                 <p class="tweet-text">${element.tweets}</p>
+//                 </div>
+//                 `
+//             }
+//         });
+//         document.getElementById('text-area').innerHTML = userHtml;
+//     }, (error) => {
+//         console.log(error.message);
+//     });
+//     return false
+// }
 
 
 socket.on('NEW_POST', (newPost) => {

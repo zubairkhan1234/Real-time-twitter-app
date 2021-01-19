@@ -1,0 +1,89 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    
+}
+
+body{
+    margin: 0px;
+    padding: 0px;
+    background-color: #6a62d2;
+}
+
+p{
+    color: rgb(104, 99, 99);
+
+}
+.profile{
+    color: white;
+}
+.chatpp{
+    /* border: 1px solid black; */
+    border-radius: 10px;
+    background-color: white;
+    width:45%;
+    padding: 10px;
+    margin: 50px auto;
+    height: auto;
+    
+}
+.logout{
+    display: block;
+    float: right;
+    width: 100px;
+    height: 50px;
+    margin-right: 50px;
+    border-radius:10px;
+    border: none;
+    box-shadow: 5px 3px 20px rgb(0, 0, 0);
+}
+
+.tweet{
+    box-shadow: 5px 3px 10px #6a62d2;
+    border-radius: 10px;
+    margin: 10px 0px 10px 0px;
+    
+}
+.tweet-text{
+    color: #6a62d2;
+    font-size: 22px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+.user-name{
+    font-size: 22px;
+    color: #8a81ff
+        
+};
+
+.tweet-date{
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+}
+
+.post{
+    width: 90px;
+    height: 40px;
+    border-radius:10px;
+    border: none;
+    background-color: #6a62d2;
+    color: white;
+}
+
+input{
+    
+    height: 40px;
+    margin:0px 20px 5px 0px;
+    border-radius:10px;
+    border: none;
+    width: 280px;
+    padding: 15px;
+    background-color: #6a62d2;
+}
+
+::placeholder {
+    color: white;
+    opacity: 1; 
+  }

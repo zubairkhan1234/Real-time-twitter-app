@@ -1,38 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" href="home.css">
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
     <script src="socket.io.js"></script>
     <title>Document</title>
-    
+
 </head>
+
 <body onload="userData(); getProfile(); getTweets(); getUsers()">
 
     <h1>This is Home page</h1>
 
 
-    <div>
+    <button class="logout" onclick="return logout()">Log out</button>
+    <div class="profile">
         <div id="userName"></div>
         <div id="userEmail"></div>
         <div id="userPhone"></div>
     </div>
-    <button onclick="return logout()">Log out</button>
 
 
     <div class="chatpp">
         <div>
-            <input type="text" name="" id="message" style="margin:5px ;" placeholder="Type your message"> 
-            <button onclick=" return tweet()" >Post</button>
+            <input type="text" name="" id="message" style="margin:5px ;" placeholder="Type your message....">
+            <button class="post" onclick=" return tweet()">Post</button>
         </div>
         <div id="text-area">
+            <div class="tweet">
+                <p class="user-name">zubair
+                <p>
+                <p class="tweet-date">12-12-2020</p>
+                <p class="tweet-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, neque
+                    voluptate. Sunt, id cupiditate provident pariatur odio itaque, illum ad autem neque quaerat
+                    asperiores ipsam, rerum ex cum veritatis iste.</p>
+            </div>
+            <div class="tweet">
+                <p class="user-name">zubair
+                <p>
+                <p class="tweet-date">12-12-2020</p>
+                <p class="tweet-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, neque
+                    voluptate. Sunt, id cupiditate provident pariatur odio itaque, illum ad autem neque quaerat
+                    asperiores ipsam, rerum ex cum veritatis iste.</p>
+            </div>
+            <div class="tweet">
+                <p class="user-name">zubair
+                <p>
+                <p class="tweet-date">12-12-2020</p>
+                <p class="tweet-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, neque
+                    voluptate. Sunt, id cupiditate provident pariatur odio itaque, illum ad autem neque quaerat
+                    asperiores ipsam, rerum ex cum veritatis iste.</p>
+            </div>
 
         </div>
     </div>
-    
+
     <script src="app.js"></script>
 </body>
+
 </html>
