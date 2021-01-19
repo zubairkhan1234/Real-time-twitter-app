@@ -1,4 +1,5 @@
-const url = 'http://localhost:5000';
+// const url = 'http://localhost:5000'
+const url = 'https://chatapp-zubair.herokuapp.com'
 var socket = io(url);
 socket.on('connect', function () {
     console.log("connected")

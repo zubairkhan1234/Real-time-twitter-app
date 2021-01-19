@@ -53,9 +53,9 @@ p{
     margin: 10px 0px 10px 0px;
     
 }
-.text-area{
+#text-area{
     display: flex;
-    columns: reverse;
+    flex-direction: column-reverse;
 }
 .tweet-text{
     color: #6a62d2;

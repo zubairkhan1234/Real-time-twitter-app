@@ -87,9 +87,7 @@ a:hover{
 
 }
 
-.text-area  {
-    border: 2px solid black;
-    margin: 0 auto;
-    width: 400px ;
-    height: 350px;
+#text-area{
+    display: flex;
+    flex-direction: column-reverse;
 }
