@@ -12,16 +12,17 @@
 
 </head>
 
-<body onload="getProfile(); getTweets()">
-<div>
-    <h1>This is Home page</h1>
-    <button class="logout" onclick="return logout()">Log out</button>
-</div>
+<body onload="getProfile(); getMyTweets()">
+    <div>
+        <h1>my</h1>
+        <button class="logout" onclick="return logout()">Log out</button>
+        <button class="logout"><a href="home.html">Other Tweet</a> </button>
+    </div>
 
     <div class="profile">
-        <div id="userName"></div>
-        <div id="userEmail"></div>
-        <div id="userPhone"></div>
+        <div>UserName: <span id="userName"></span></div>
+        <div> <span  id="userEmail"></span></div>
+        <div>Phone: <span  id="userEmail"></span></div>
     </div>
     <div class="chatpp">
         <div class="myprofile">
@@ -30,8 +31,10 @@
         <div>
             <input type="text" name="" id="message" style="margin:5px ;" placeholder="Type your message....">
             <button class="post" onclick=" return tweet()">Post</button>
+            
+
         </div>
-        <div id="text-area">
+        <div id="usertext-area">
             <div class="tweet">
                 <p class="user-name">zubair
                 <p>

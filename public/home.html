@@ -14,9 +14,14 @@
 
 <body onload="getProfile(); getTweets()">
 
-    <h1>This is Home page</h1>
+    <div>
+        <h1>This is Home page</h1>
+        <button class="logout" onclick="return logout()">Log out</button>
+        <button class="logout"><a href="profile.html">My Tweet</a> </button>
+        <button class="logout" onclick="return logout()">Log out</button>
+    </div>
 
-    <button class="logout" onclick="return logout()">Log out</button>
+    
     <div class="profile">
         <div id="userName"></div>
         <div id="userEmail"></div>
