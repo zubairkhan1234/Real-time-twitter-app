@@ -32,7 +32,7 @@ app.use('/', authRoutes)
 app.use("/", express.static(path.resolve(path.join(__dirname, "public"))));
 
 app.use(function (req, res, next) {
-    console.log('cookie', req.cookies)
+    // console.log('cookie', req.cookies)
 
     if (!req.cookies.jToken) {
         res.status(401).send("include http-only credentials with every request")
@@ -45,7 +45,7 @@ app.use(function (req, res, next) {
             const nowDate = new Date().getTime()
             const diff = nowDate - issueDate
 
-            if (diff > 30000) {
+            if (diff > 300000) {
                 res.status(401).send('Token Expired')
 
             } else {
@@ -55,7 +55,7 @@ app.use(function (req, res, next) {
                     email: decodedData.email
                 }, SERVER_SECRET)
                 res.cookie('jToken', token, {
-                    maxAge: 86_400_000,
+                    maxAge: 86400000,
                     httpOnly: true
                 })
                 req.body.jToken = decodedData
@@ -69,13 +69,8 @@ app.use(function (req, res, next) {
 
 })
 
-
-
 app.get('/Profile', (req, res, next) => {
-
     console.log(req.body)
-
-
     userModle.findById(req.body.jToken.id, "name email phone gender cratedOn",
         function (err, data) {
             console.log(data)
@@ -125,6 +120,7 @@ app.post('/tweet', (req, res, next) => {
 
 app.get('/getTweets', (req, res, next) => {
 
+    console.log(req.body)
     tweetmodel.find({}, (err, data) => {
         if (err) {
             console.log(err)
@@ -136,7 +132,6 @@ app.get('/getTweets', (req, res, next) => {
         }
     })
 })
-
 
 
 

@@ -10,7 +10,9 @@ body{
     padding: 0px;
     background-color: #6a62d2;
 }
-
+.myprofile{
+    text-align: center;
+}
 p{
     color: rgb(104, 99, 99);
 
@@ -44,6 +46,10 @@ p{
     border-radius: 10px;
     margin: 10px 0px 10px 0px;
     
+}
+.text-area{
+    display: flex;
+    columns: reverse;
 }
 .tweet-text{
     color: #6a62d2;

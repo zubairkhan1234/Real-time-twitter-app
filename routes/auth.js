@@ -3,7 +3,7 @@ var bcrypt = require("bcrypt-inzi");
 var jwt = require('jsonwebtoken');
 var postmark = require("postmark");
 var { SERVER_SECRET } = require("../core/index");
-var client = new postmark.Client("");
+var client = new postmark.Client("b13e0642-c597-4c7d-a9d7-ca1d3cb3a3a2");
 
 
 var { userModle, otpModel } = require("../dbrepo/modles");
@@ -86,7 +86,6 @@ api.post('/signup', (req, res, next) => {
 
 });
 
-
 api.post("/login", (req, res, next) => {
     var userEmail = req.body.email;
     var userPassword = req.body.password;
@@ -168,8 +167,6 @@ api.post("/login", (req, res, next) => {
 
 })
 
-
-
 api.post("/logout",(req, res, next) =>{
 
     res.cookie('jToken', "", {
@@ -179,8 +176,6 @@ api.post("/logout",(req, res, next) =>{
 
     res.send("logout success");
 })
-
-
 
 api.post("/forget-password", (req, res, next) => {
 
@@ -320,9 +315,6 @@ api.post("/forget-password-step-2", (req, res, next) => {
             }
         });
 })
-
-
-
 
 module.exports = api
 
