@@ -3,8 +3,9 @@ var bcrypt = require("bcrypt-inzi");
 var jwt = require('jsonwebtoken');
 var postmark = require("postmark");
 var { SERVER_SECRET } = require("../core/index");
-var token = process.env.API_TOKEN
-var client = new postmark.Client(token);
+// var token = process.env.API_TOKEN
+// var client = new postmark.Client(token);
+var client = new postmark.Client("b13e0642-c597-4c7d-a9d7-ca1d3cb3a3a2");
 
 
 var { userModle, otpModel } = require("../dbrepo/modles");
@@ -55,13 +56,13 @@ api.post('/signup', (req, res, next) => {
                     if (!err) {
                         res.send({
                             message: "User created",
-                            status:200
+                            status: 200
                         })
                     } else {
                         console.log(err)
                         res.send({
                             message: "user already exist",
-                            status:403
+                            status: 403
                         })
                     };
 
@@ -70,16 +71,16 @@ api.post('/signup', (req, res, next) => {
             })
 
 
-        } else if (err){
+        } else if (err) {
             res.send({
-                message:"db error",
-                status:500
+                message: "db error",
+                status: 500
             })
         } else {
 
             res.send({
                 message: "User already exist",
-                status:403
+                status: 403
             })
         }
     })
@@ -130,45 +131,45 @@ api.post("/login", (req, res, next) => {
 
                         }, SERVER_SECRET);
 
-                        res.cookie('jToken', token, {
-                            maxAge: 86_400_000,
-                            httpOnly: true
-                        });
+                res.cookie('jToken', token, {
+                    maxAge: 86_400_000,
+                    httpOnly: true
+                });
 
-                        res.send({
-                            message: "login success",
-                            status:200,
+                res.send({
+                    message: "login success",
+                    status: 200,
 
-                            loginRequestUser: {
-                                name: loginRequestUser.name,
-                                email: loginRequestUser.email,
-                                phone: loginRequestUser.phone
-                            }
-                        });
-
-                    } else {
-                        console.log('not matched')
-                        res.send({
-                            message: "Incorrect password",
-                            status: 404
-                        })
+                    loginRequestUser: {
+                        name: loginRequestUser.name,
+                        email: loginRequestUser.email,
+                        phone: loginRequestUser.phone,
                     }
-                }).catch(e => {
-                    console.log("errer : ", e)
-                })
+                });
 
             } else {
+                console.log('not matched')
                 res.send({
-                    message: "User not found",
-                    status: 403
+                    message: "Incorrect password",
+                    status: 404
                 })
             }
+        }).catch(e => {
+            console.log("errer : ", e)
+        })
+
+} else {
+    res.send({
+        message: "User not found",
+        status: 403
+    })
+}
 
         })
 
 })
 
-api.post("/logout",(req, res, next) =>{
+api.post("/logout", (req, res, next) => {
 
     res.cookie('jToken', "", {
         maxAge: 86_400_000,
@@ -224,8 +225,8 @@ api.post("/forget-password", (req, res, next) => {
                 }).catch((err) => {
                     console.log("error in creating otp: ", err);
                     res.send({
- 
-                        message:"unexpected error "
+
+                        message: "unexpected error "
                     })
                 })
 
@@ -269,7 +270,7 @@ api.post("/forget-password-step-2", (req, res, next) => {
                 otpModel.find({ email: req.body.emailVarification },
                     function (err, otpData) {
 
-                        
+
 
                         if (err) {
                             res.send({
@@ -291,8 +292,8 @@ api.post("/forget-password-step-2", (req, res, next) => {
                                 bcrypt.stringToHash(req.body.newPassword).then(function (hash) {
                                     user.update({ password: hash }, {}, function (err, data) {
                                         res.send({
-                                            status:200,
-                                            message:"password updated"
+                                            status: 200,
+                                            message: "password updated"
                                         });
                                     })
                                 })
@@ -316,6 +317,10 @@ api.post("/forget-password-step-2", (req, res, next) => {
             }
         });
 })
+
+
+
+
 
 module.exports = api
 

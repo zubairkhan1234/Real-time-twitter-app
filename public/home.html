@@ -13,35 +13,49 @@
 </head>
 
 <body onload="getProfile(); getTweets()">
-
     <div>
-        <h1>This is Home page</h1>
-        <button class="logout" onclick="return logout()">Log out</button>
-        <button class="logout"><a href="profile.html">My Tweet</a> </button>
-        <button class="logout" onclick="return logout()">Log out</button>
-    </div>
 
-    
-    <div class="profile">
-        <div id="userName"></div>
-        <div id="userEmail"></div>
-        <div id="userPhone"></div>
-    </div>
-    <div class="chatpp">
-        <div>
-            <input type="text" name="" id="message" style="margin:5px ;" placeholder="Type your message....">
-            <button class="post" onclick=" return tweet()">Post</button>
+        <div class="button">
+            <button class="logout" onclick="return logout()">Log out</button>
+            <button class="logout"><a href="profile.html">My Tweet</a> </button>
         </div>
-        <div id="text-area">
-            <div class="tweet">
-                <p class="user-name">zubair
-                <p>
-                <p class="tweet-date">12-12-2020</p>
-                <p class="tweet-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, neque
-                    voluptate. Sunt, id cupiditate provident pariatur odio itaque, illum ad autem neque quaerat
-                    asperiores ipsam, rerum ex cum veritatis iste.</p>
+
+        <form onsubmit="return upload()">
+
+            <input required type="file" id="fileInput">
+            <button type="submit"> Upload </button>
+        </form>
+        <img id="img" src="" alt="">
+        <div>
+            <h1>Home</h1>
+
+        </div>
+
+        <div class="profile">
+            <div>UserName : <span id="userName"></span></div>
+            <div>Email : <span id="userEmail"></span></div>
+            <div>Phone : <span id="userPhone"></span></div>
+        </div>
+
+
+
+
+
+
+
+
+        <div class="chatpp">
+            <div>
+                <form action="">
+                    <input type="text" name="" id="message" style="margin:5px ;" placeholder="Type your message....">
+                    <button class="post" onclick=" return tweet()">Post</button>
+                </form>
+            </div>
+            <div id="text-area">
+
             </div>
         </div>
+
     </div>
 
 

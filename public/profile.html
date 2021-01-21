@@ -14,34 +14,42 @@
 
 <body onload="getProfile(); getMyTweets()">
     <div>
-        <h1>my</h1>
-        <button class="logout" onclick="return logout()">Log out</button>
-        <button class="logout"><a href="home.html">Other Tweet</a> </button>
-    </div>
 
-    <div class="profile">
-        <div>UserName: <span id="userName"></span></div>
-        <div> <span  id="userEmail"></span></div>
-        <div>Phone: <span  id="userEmail"></span></div>
-    </div>
-    <div class="chatpp">
-        <div class="myprofile">
-            <h1>My Profile</h1>
-        </div>
-        <div>
-            <input type="text" name="" id="message" style="margin:5px ;" placeholder="Type your message....">
-            <button class="post" onclick=" return tweet()">Post</button>
-            
+        <div class="user-interface">
+            <div>
+                <button class="logout" onclick="return logout()">Log out</button>
+                <button class="logout"><a href="home.html">Other Tweet</a> </button>
+            </div>
+
+            <form onsubmit="return upload()">
+                <input required type="file" id="fileInput" onchange="previewFile()">
+                <button type="submit" id="uploadBtn"> Upload </button>
+
+            </form>
+
+            <img id="img" src="" alt="">
+
+            <div>
+                <h1>My profile</h1>
+            </div>
+
+            <div class="profile">
+                <div>UserName : <span id="userName"></span></div>
+                <div>Email : <span id="userEmail"></span></div>
+                <div>Phone : <span id="userPhone"></span></div>
+            </div>
 
         </div>
-        <div id="usertext-area">
-            <div class="tweet">
-                <p class="user-name">zubair
-                <p>
-                <p class="tweet-date">12-12-2020</p>
-                <p class="tweet-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, neque
-                    voluptate. Sunt, id cupiditate provident pariatur odio itaque, illum ad autem neque quaerat
-                    asperiores ipsam, rerum ex cum veritatis iste.</p>
+        <div class="chatpp">
+            <div>
+                <form action="">
+                    <input type="text" name="" id="message" style="margin:5px ;" placeholder="Type your message....">
+                    <button class="post" onclick=" return tweet()">Post</button>
+                </form>
+
+            </div>
+            <div id="usertext-area">
+
             </div>
         </div>
     </div>

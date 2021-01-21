@@ -1,10 +1,10 @@
-var { MONGOOSE_DBURI } = require("../core/index")
+// var { MONGOOSE_DBURI } = require("../core/index")
 var mongoose = require('mongoose');
 
-let dbURI =  MONGOOSE_DBURI
+// let dbURI =  MONGOOSE_DBURI
 
 
-// let dbURI = "mongodb+srv://zubairabc:zubairabc@cluster0.j83vk.mongodb.net/testdatabase?retryWrites=true&w=majority"
+let dbURI = "mongodb+srv://zubairabc:zubairabc@cluster0.j83vk.mongodb.net/testdatabase?retryWrites=true&w=majority"
 
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 
@@ -46,6 +46,7 @@ var userSchema = new mongoose.Schema({
     email: String,
     password: String,
     phone: String,
+    profilePic:String,
     createdOn: { type: Date, 'default': Date.now },
     activeSince: Date
 

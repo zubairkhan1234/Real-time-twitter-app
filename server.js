@@ -9,6 +9,7 @@ var { userModle, tweetmodel } = require("./dbrepo/modles");
 var app = express();
 var authRoutes = require('./routes/auth')
 var  {SERVER_SECRET}  = require("./core/index");
+var {SERVICE_ACCOUNT} = require("./core/index.js")
 
 var http = require("http");
 var socketIO = require("socket.io");
@@ -71,9 +72,9 @@ app.use(function (req, res, next) {
 
 app.get('/Profile', (req, res, next) => {
     console.log(req.body)
-    userModle.findById(req.body.jToken.id, "name email phone gender cratedOn",
+    userModle.findById(req.body.jToken.id, "name email phone gender cratedOn  profilePic",
         function (err, data) {
-            console.log(data)
+            console.log( "ye mera data hai "+ data)
             if (!err) {
                 res.send({
                     profile: data
@@ -132,6 +133,105 @@ app.get('/getTweets', (req, res, next) => {
         }
     })
 })
+
+
+//////////////************************************* for frofile */
+
+const fs = require('fs')
+const multer = require('multer')
+const admin = require("firebase-admin");
+// const { profile } = require('console');
+
+//==============================================
+const storage = multer.diskStorage({ // https://www.npmjs.com/package/multer#diskstorage
+    destination: './upload/',
+    filename: function (req, file, cb) {
+        cb(null, `${new Date().getTime()}-${file.filename}.${file.mimetype.split("/")[1]}`)
+    }
+})
+var upload = multer({ storage: storage })
+console.log(upload)
+
+//==============================================
+
+
+
+
+
+admin.initializeApp({
+    credential: admin.credential.cert(SERVICE_ACCOUNT),
+    DATABASE_URL:process.env.DATABASE_URL
+});
+const bucket = admin.storage().bucket("gs://twitter-94cd0.appspot.com");
+
+//==============================================
+
+
+
+
+app.post("/upload", upload.any(), (req, res, next) => { 
+
+    console.log("req.body: ", req.body);
+    console.log("req.body: ", JSON.parse(req.body.myDetails));
+    console.log("req.files: ", req.files);
+
+    console.log("uploaded file name: ", req.files[0].originalname);
+    console.log("file type: ", req.files[0].mimetype);
+    console.log("file name in server folders: ", req.files[0].filename);
+    console.log("file path in server folders: ", req.files[0].path);
+
+    bucket.upload(
+        req.files[0].path,
+        
+        function (err, file, apiResponse) {
+            if (!err) {
+                console.log("api resp: ", apiResponse);
+
+                file.getSignedUrl({
+                    action: 'read',
+                    expires: '03-09-2491'
+                }).then((urlData, err) => {
+                    // console.log(req.body.email)
+                    if (!err) {
+                        // console.log("public downloadable url: ", urlData[0]) // this is public downloadable url 
+                       console.log(req.body.email)
+                        userModle.findOne({email: req.body.email},(err,users)=>{
+                            console.log(users)
+                            if (!err) {
+                                users.update({ profilePic: urlData[0]}, {}, function (err, data) {
+                                    console.log(users)
+                                    res.send({
+                                        status: 200,
+                                        message: "image uploaded",
+                                        picture:users.profilePic
+                                    });
+                                })
+                            }
+                            else{
+                                res.send({
+                                    message: "error"
+                                });
+                            }
+                        })
+                        try {
+                            fs.unlinkSync(req.files[0].path)
+                            //file removed
+                        } catch (err) {
+                            console.error(err)
+                        }
+                    }
+                })
+            } else {
+                console.log("err: ", err)
+                res.status(500).send();
+            }
+        });
+})
+
+
+
+
+
 
 
 
