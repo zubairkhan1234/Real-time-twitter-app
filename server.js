@@ -13,7 +13,6 @@ var { userModle, tweetmodel } = require("./dbrepo/modles");
 var app = express();
 var authRoutes = require('./routes/auth')
 var  {SERVER_SECRET}  = require("./core/index");
-// var {SERVICE_ACCOUNT} = require("./core/index.js") 
 var SERVICE_ACCOUNT = JSON.parse(process.env.SERVICEACCOUNT)
 
 var http = require("http");
