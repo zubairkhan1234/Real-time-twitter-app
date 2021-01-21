@@ -5,11 +5,16 @@ var bodyParser = require('body-parser');
 var path = require("path");
 var jwt = require('jsonwebtoken');
 var cookieParser = require('cookie-parser');
+const fs = require('fs')
+const multer = require('multer')
+const admin = require("firebase-admin");
+// const { profile } = require('console');
 var { userModle, tweetmodel } = require("./dbrepo/modles");
 var app = express();
 var authRoutes = require('./routes/auth')
 var  {SERVER_SECRET}  = require("./core/index");
-var {SERVICE_ACCOUNT} = require("./core/index.js")
+// var {SERVICE_ACCOUNT} = require("./core/index.js") 
+var SERVICE_ACCOUNT = JSON.parse(process.env.SERVICEACCOUNT)
 
 var http = require("http");
 var socketIO = require("socket.io");
@@ -137,10 +142,7 @@ app.get('/getTweets', (req, res, next) => {
 
 //////////////************************************* for frofile */
 
-const fs = require('fs')
-const multer = require('multer')
-const admin = require("firebase-admin");
-// const { profile } = require('console');
+
 
 //==============================================
 const storage = multer.diskStorage({ // https://www.npmjs.com/package/multer#diskstorage
@@ -150,7 +152,7 @@ const storage = multer.diskStorage({ // https://www.npmjs.com/package/multer#dis
     }
 })
 var upload = multer({ storage: storage })
-console.log(upload)
+// console.log(upload)
 
 //==============================================
 
