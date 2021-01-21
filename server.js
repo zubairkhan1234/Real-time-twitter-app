@@ -145,7 +145,7 @@ app.get('/getTweets', (req, res, next) => {
 
 
 //==============================================
-const storage = multer.diskStorage({ // https://www.npmjs.com/package/multer#diskstorage
+const storage = multer.diskStorage({
     destination: './upload/',
     filename: function (req, file, cb) {
         cb(null, `${new Date().getTime()}-${file.filename}.${file.mimetype.split("/")[1]}`)
