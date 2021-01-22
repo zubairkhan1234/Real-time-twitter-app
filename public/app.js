@@ -1,5 +1,5 @@
-// const url = 'http://localhost:5000'
-const url = 'https://chatapp-zubair.herokuapp.com'
+const url = 'http://localhost:5000'
+// const url = 'https://chatapp-zubair.herokuapp.com'
 var socket = io(url);
 socket.on('connect', function () {
     // console.log("connected")
@@ -303,13 +303,8 @@ function upload() {
         headers: { 'Content-Type': 'multipart/form-data' }
     })
         .then(res => {
-            // console.log(`upload Success` + res.data.img);
+
             console.log(`upload Success` + res.data.picture);
-            document.getElementById('img').src = res.data.picture
-        // console.log(src)
-        // document.getElementById('img').src = src
-        // console.log( document.getElementById('profilePic'))
-        // console.log(document.getElementById('profilePic').src)
 
         })
         .catch(err => {
@@ -322,13 +317,12 @@ function upload() {
 }
 
 function previewFile() {
-    const preview = document.getElementsById('img');
+    const preview = document.querySelector('img');
     console.log(preview)
     const file = document.querySelector('input[type=file]').files[0];
     const reader = new FileReader();
 
     reader.addEventListener("load", function () {
-        // convert image file to base64 string
         preview.src = reader.result;
     }, false);
 
