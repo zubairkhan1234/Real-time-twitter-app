@@ -3,9 +3,8 @@ var bcrypt = require("bcrypt-inzi");
 var jwt = require('jsonwebtoken');
 var postmark = require("postmark");
 var { SERVER_SECRET } = require("../core/index");
-// var token = process.env.API_TOKEN
-// var client = new postmark.Client(token);
-var client = new postmark.Client("b13e0642-c597-4c7d-a9d7-ca1d3cb3a3a2");
+var token = process.env.API_TOKEN
+var client = new postmark.Client(token);
 
 
 var { userModle, otpModel } = require("../dbrepo/modles");
@@ -14,10 +13,10 @@ var api = express.Router()
 
 
 api.post('/signup', (req, res, next) => {
-    console.log(req.body.userName)
-    console.log(req.body.userEmail)
-    console.log(req.body.userPhone)
-    console.log(req.body.userPassword)
+    // console.log(req.body.userName)
+    // console.log(req.body.userEmail)
+    // console.log(req.body.userPhone)
+    // console.log(req.body.userPassword)
     if (!req.body.userName
         || !req.body.userEmail
         || !req.body.userPhone
@@ -41,7 +40,7 @@ api.post('/signup', (req, res, next) => {
 
 
         if (err) {
-            console.log(err)
+            // console.log(err)
         } else if (!data) {
 
             bcrypt.stringToHash(req.body.userPassword).then(function (HashPassword) {
@@ -59,7 +58,7 @@ api.post('/signup', (req, res, next) => {
                             status: 200
                         })
                     } else {
-                        console.log(err)
+                        // console.log(err)
                         res.send({
                             message: "user already exist",
                             status: 403
@@ -113,10 +112,10 @@ api.post("/login", (req, res, next) => {
                 res.status(500).send({
                     message: 'an errer occured'
                 })
-                console.log(err)
+                // console.log(err)
             } else if (loginRequestUser) {
 
-                console.log(loginRequestUser)
+                // console.log(loginRequestUser)
 
                 bcrypt.varifyHash(userPassword, loginRequestUser.password).then(match => {
 
@@ -148,14 +147,14 @@ api.post("/login", (req, res, next) => {
                 });
 
             } else {
-                console.log('not matched')
+                // console.log('not matched')
                 res.send({
                     message: "Incorrect password",
                     status: 404
                 })
             }
         }).catch(e => {
-            console.log("errer : ", e)
+            // console.log("errer : ", e)
         })
 
 } else {
@@ -181,7 +180,7 @@ api.post("/logout", (req, res, next) => {
 
 api.post("/forget-password", (req, res, next) => {
 
-    console.log(req.body.forgetEmail)
+    // console.log(req.body.forgetEmail)
     if (!req.body.forgetEmail) {
 
         res.status(403).send(`
@@ -214,7 +213,7 @@ api.post("/forget-password", (req, res, next) => {
                         "TextBody": `Here is your pasword reset code: ${otp}`
                     }).then((status) => {
 
-                        console.log("status: ", status);
+                        // console.log("status: ", status);
                         res.send({
                             status: 200,
                             message: "email sent with otp"
@@ -223,7 +222,7 @@ api.post("/forget-password", (req, res, next) => {
                     })
 
                 }).catch((err) => {
-                    console.log("error in creating otp: ", err);
+                    // console.log("error in creating otp: ", err);
                     res.send({
 
                         message: "unexpected error "
@@ -241,9 +240,9 @@ api.post("/forget-password", (req, res, next) => {
 
 api.post("/forget-password-step-2", (req, res, next) => {
 
-    console.log(req.body.otpCode)
-    console.log(req.body.newPassword)
-    console.log(req.body.emailVarification)
+    // console.log(req.body.otpCode)
+    // console.log(req.body.newPassword)
+    // console.log(req.body.emailVarification)
 
     if (!req.body.emailVarification && !req.body.otpCode && !req.body.newPassword) {
 
@@ -260,7 +259,7 @@ api.post("/forget-password-step-2", (req, res, next) => {
 
     userModle.findOne({ email: req.body.emailVarification },
         function (err, user) {
-            console.log(err)
+            // console.log(err)
             if (err) {
                 res.status(500).send({
                     message: "an error occured: " + JSON.stringify(err)
@@ -279,13 +278,13 @@ api.post("/forget-password-step-2", (req, res, next) => {
                         } else if (otpData) {
                             otpData = otpData[otpData.length - 1]
 
-                            console.log("otpData: ", otpData);
+                            // console.log("otpData: ", otpData);
 
                             const now = new Date().getTime();
                             const otpIat = new Date(otpData.createdOn).getTime();
                             const diff = now - otpIat;
 
-                            console.log("diff: ", diff);
+                            // console.log("diff: ", diff);
 
                             if (otpData.otpCode === req.body.otpCode && diff < 300000) {
 

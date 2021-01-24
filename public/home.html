@@ -9,135 +9,68 @@
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
     <script src="socket.io.js"></script>
     <title>Document</title>
-    <style>
-        .myClass {
-        display: block !important;
-        list-style: none;
-        padding: 10px;
-        font-size: 18px;
-        transform: rotate(180deg);
 
-
-    }
-
-    .haha {
-        font-size: 15px;
-        padding-left: 10px;
-        transform: rotate(180deg);
-    }
-
-    .userProfile {
-        margin-top: 15%;
-    }
-
-    .userProfilePic {
-        margin-top: 70%;
-    }
-
-    .img {
-        width: 170px;
-        border-radius: 50%;
-        display: block;
-        margin: 8px auto;
-    }
-
-
-
-    .opacityFile {
-        display: none;
-    }
-
-
-
-    .imageUpdate {
-        position: relative;
-        width: 100%;
-    }
-
-    .img {
-        opacity: 1;
-        display: block;
-        width: 200px;
-        height: 200px;
-        transition: .5s ease;
-        backface-visibility: hidden;
-    }
-
-    .middle {
-        transition: .5s ease;
-        opacity: 0;
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-        text-align: center;
-    }
-
-    .imageUpdate:hover .img {
-        opacity: 0.3;
-    }
-
-    .imageUpdate:hover .middle {
-        opacity: 1;
-    }
-
-    .text {
-        color: rgb(0, 0, 0);
-        font-size: 10px;
-        padding: 5px 5px;
-        margin-bottom: 60px;
-        margin-right: 500px;
-    }
-    </style>
 
 </head>
 
 <body onload="getProfile(); getTweets()">
-    <div>
-
-        <div class="button">
-            <button class="logout" onclick="return logout()">Log out</button>
-            <button class="logout"><a href="profile.html">My Tweet</a> </button>
-        </div>
 
 
-        <form action="#">
-            <label class="filebutton">
-                <div class="imageUpdate">
-                    <img class="img " id="img"
-                        src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
-                        alt="Pagal">
-                    <div class="middle">
-                        <div class="text"></div>
-                    </div>
-                </div>
-                <span><input class="opacityFile" type="file" id="fileInput" name="myfile"
-                        onchange="upload(); previewFile()">
-                </span>
-            </label>
-        </form>
+
+    <div class="profileside">
+
+
         <div>
-            <h1>Home</h1>
+
+            <form action="#" class="form">
+                <label class="filebutton">
+                    <div class="imageUpdate">
+                        <img class="img " id="img"
+                            src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
+                            alt="Pagal">
+                        <div class="middle">
+                            <div class="text"></div>
+                        </div>
+                    </div>
+                    <span><input class="opacityFile" type="file" id="fileInput" name="myfile"
+                            onchange="upload(); previewFile()">
+                    </span>
+                </label>
+            </form>
+
+            <div class="profile">
+                <div class="info">
+                    <h1>Home</h1>
+                    <div>UserName : <span id="userName"></span></div>
+                    <div>Email : <span id="userEmail"></span></div>
+                    <div>Phone : <span id="userPhone"></span></div>
+                </div>
+            </div>
 
         </div>
 
-        <div class="profile">
-            <div>UserName : <span id="userName"></span></div>
-            <div>Email : <span id="userEmail"></span></div>
-            <div>Phone : <span id="userPhone"></span></div>
+
+        <div class="button-area">
+            <div class="button">
+                <button class="logout"><a href="profile.html">My Tweet</a> </button>
+                <button class="logout"><a href="home.html">All Tweet</a> </button>
+            </div>
         </div>
 
 
+    </div>
 
-
-
-
-
+    <div class="tweet-area">
+        <div class="button-area">
+            <div class="button">
+                <button class="logout" onclick="return logout()">Log out</button>
+            </div>
+        </div>
 
         <div class="chatpp">
+
             <div>
-                <form action="">
+                <form action="#">
                     <input type="text" name="" id="message" style="margin:5px ;" placeholder="Type your message....">
                     <button class="post" onclick=" return tweet()">Post</button>
                 </form>
@@ -146,8 +79,8 @@
 
             </div>
         </div>
-
     </div>
+
 
 
     <script src="app.js"></script>

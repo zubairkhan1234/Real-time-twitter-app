@@ -1,8 +1,8 @@
-const url = 'http://localhost:5000'
-// const url = 'https://chatapp-zubair.herokuapp.com'
+// const url = 'http://localhost:5000'
+    const url = 'https://chatapp-zubair.herokuapp.com'
 var socket = io(url);
-socket.on('connect', function () {
-    // console.log("connected")
+socket.on('connect', function() {
+    console.log("connected")
 });
 
 function signup() {
@@ -10,20 +10,20 @@ function signup() {
     var userEmail = document.getElementById('email').value.toLowerCase()
     var userPhone = document.getElementById('phone').value
     var userPassword = document.getElementById('password').value
-    // console.log(userEmail)
+        // console.log(userEmail)
     axios({
-        method: 'post',
-        url: url + "/signup",
-        data: {
-            userName: userName,
-            userEmail: userEmail,
-            userPhone: userPhone,
-            userPassword: userPassword
-        },
-        withCredentials: true
+            method: 'post',
+            url: url + "/signup",
+            data: {
+                userName: userName,
+                userEmail: userEmail,
+                userPhone: userPhone,
+                userPassword: userPassword
+            },
+            withCredentials: true
 
-    })
-        .then(function (response) {
+        })
+        .then(function(response) {
             // console.log(response);
             if (response.data.status === 200) {
                 alert(response.data.message)
@@ -32,7 +32,7 @@ function signup() {
                 alert(response.data.message)
             }
         })
-        .catch(function (error) {
+        .catch(function(error) {
             alert(error.response.data.message)
         });
 
@@ -58,7 +58,7 @@ function login() {
         withCredentials: true
     })
 
-        .then(function (response) {
+    .then(function(response) {
             // console.log(response);
             if (response.data.status === 200) {
                 alert(response.data.message)
@@ -67,7 +67,7 @@ function login() {
                 alert(response.data.message)
             }
         })
-        .catch(function (error) {
+        .catch(function(error) {
             alert(error.response.data.message)
         });
 
@@ -82,7 +82,7 @@ function forgetPassword() {
     // alert("lafdksals")
     var forgetEmail = document.getElementById('forgetEmail').value
     localStorage.setItem("forgetEmail", forgetEmail)
-    // console.log(forgetEmail)
+        // console.log(forgetEmail)
     axios({
         method: 'post',
         url: url + '/forget-password',
@@ -107,15 +107,16 @@ function forgetPassword() {
 
     return false;
 }
+
 function forgetPasswordStep2() {
 
     // alert("lafdksals")
     var otpCode = document.getElementById('varificationCode').value
     var newPassword = document.getElementById('NewPassword').value
     var emailVarification = localStorage.getItem("forgetEmail")
-    // console.log(otpCode)
-    // console.log(newPassword)
-    // console.log(emailVarification)
+        // console.log(otpCode)
+        // console.log(newPassword)
+        // console.log(emailVarification)
     axios({
         method: 'post',
         url: url + '/forget-password-step-2',
@@ -139,8 +140,6 @@ function forgetPasswordStep2() {
     return false;
 }
 
-
-
 function getProfile() {
     axios({
         method: 'get',
@@ -155,10 +154,9 @@ function getProfile() {
         sessionStorage.setItem("userName", response.data.profile.name)
 
         if (response.data.profile.profilePic) {
-            
+
             document.getElementById("img").src = response.data.profile.profilePic;
-        }
-        else{
+        } else {
             // document.getElementById("uploadTxt").innerHTML = "Upload profile picture";
         }
     }, (err) => {
@@ -190,19 +188,17 @@ function tweet() {
     // alert("jdsljfa")
     var tweet = document.getElementById('message').value
     axios({
-        method: 'post',
-        url: url + '/tweet',
-        data: {
-            tweet: tweet,
-            userEmail: sessionStorage.getItem("userEmail"),
-            userName: sessionStorage.getItem("userName")
-        },
-        withCredentials: true
-    })
-        .then(function (response) {
+            method: 'post',
+            url: url + '/tweet',
+            data: {
+                tweet: tweet,
+                userEmail: sessionStorage.getItem("userEmail"),
+                userName: sessionStorage.getItem("userName")
+            },
+            withCredentials: true
         })
-        .catch(function (error) {
-        });
+        .then(function(response) {})
+        .catch(function(error) {});
 
 
 }
@@ -213,13 +209,21 @@ function getTweets() {
         url: url + '/getTweets',
         credentials: 'include',
     }).then((response) => {
-        // console.log(response.data)
+        console.log(response.data)
         let tweets = response.data;
+        
+        
         let html = ""
         tweets.forEach(element => {
+            console.log(element.profilePic)
+            if(element.profilePic === undefined){
+                element.profilePic = "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
+                console.log(response.data.profilePic)
+             }
             html += `
             <div class="tweet">
-            <p class="user-name">${element.name}<p>
+            <img src="${element.profilePic}" alt="image" style="width: 50px;height: 50px;border-radius: 100%;">
+            <span class="user-name">${element.name}<span>
             <p class="tweet-date">${new Date(element.createdOn).toLocaleTimeString()}</p>
             <p class="tweet-text">${element.tweet}</p>
             </div>
@@ -241,35 +245,41 @@ function getMyTweets() {
     }).then((response) => {
 
         let userTweet = response.data
-        // console.log(response.data)
+        console.log(response.data)
         let userHtml = ""
         let userName = document.getElementById('userName').innerHTML;
-        // console.log(userName)
+        console.log(userName)
         userTweet.forEach(element => {
             if (element.name === userName) {
+                if(element.profilePic === undefined){
+                    element.profilePic = "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
+                    console.log(response.data.profilePic)
+                 }
                 userHtml += `
                 <div class="tweet">
-                <p class="user-name">${element.name}<p>
+                <img src="${element.profilePic}" alt="image" style="width: 50px;height: 50px;border-radius: 100%;">
+                <span class="user-name">${element.name}<span>
                 <p class="tweet-date">${new Date(element.createdOn).toLocaleTimeString()}</p>
                 <p class="tweet-text">${element.tweet}</p>
                 </div>
                 `
             }
         });
-        // console.log(userHtml)
+        console.log(userHtml)
         document.getElementById('usertext-area').innerHTML = userHtml;
     }, (error) => {
-        // console.log(error.message);
+        console.log(error.message);
     });
     return false
 }
 
 socket.on('NEW_POST', (newPost) => {
-    // console.log(newPost)
+    console.log(newPost)
     let tweets = newPost;
     document.getElementById('text-area').innerHTML += `
     <div class="tweet">
-    <p class="user-name>${newPost.name}<p>
+    <img src="${element.profilePic}" alt="image" style="width: 50px;height: 50px;border-radius: 100%;">
+    <span>${newPost.name}<span>
     <p class="tweet-date">${new Date(tweets.createdOn).toLocaleTimeString()}</p>
     <p class="tweet-text">${tweets.tweet}</p>
     </div>
@@ -297,11 +307,11 @@ function upload() {
     );
 
     axios({
-        method: 'post',
-        url: url + '/upload',
-        data: formData,
-        headers: { 'Content-Type': 'multipart/form-data' }
-    })
+            method: 'post',
+            url: url + '/upload',
+            data: formData,
+            headers: { 'Content-Type': 'multipart/form-data' }
+        })
         .then(res => {
 
             console.log(`upload Success` + res.data.picture);
@@ -322,7 +332,7 @@ function previewFile() {
     const file = document.querySelector('input[type=file]').files[0];
     const reader = new FileReader();
 
-    reader.addEventListener("load", function () {
+    reader.addEventListener("load", function() {
         preview.src = reader.result;
     }, false);
 

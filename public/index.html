@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="style.css">
-    <script src="socket.io.js"></script>
+
 
 </head>
+
 <body>
 
     <form class="form" action="#" onsubmit="return signup()">
+
         <div class="heading">SingUp Now</div>
 
-        <label >User Name</label><br>
+        <label>User Name</label><br>
         <input type="text" required placeholder="user Name" id="name"> <br>
-        <label >Email</label><br>
+        <label>Email</label><br>
         <input type="email" required placeholder="Email" id="email"> <br>
-        <label >Phone</label><br>
-        <input type="number"  required placeholder="phone" id="phone"> <br>
-        <label >Password</label><br>
+        <label>Phone</label><br>
+        <input type="number" required placeholder="phone" id="phone"> <br>
+        <label>Password</label><br>
         <input type="password" required placeholder="password" id="password"> <br>
 
         <button>Sign Up</button>
@@ -30,9 +33,8 @@
 
 
     </form>
-    <div class="result"></div>
-
     <script src="app.js"></script>
-    
+
 </body>
+
 </html>

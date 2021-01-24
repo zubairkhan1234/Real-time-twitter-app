@@ -13,47 +13,69 @@
 </head>
 
 <body onload="getProfile(); getMyTweets()">
-    <div>
+    <div class="profileside">
 
-        <div class="user-interface">
-            <div>
-                <button class="logout" onclick="return logout()">Log out</button>
-                <button class="logout"><a href="home.html">Other Tweet</a> </button>
-            </div>
 
-            <form onsubmit="return upload()">
-                <input required type="file" id="fileInput" onchange="previewFile()">
-                <button type="submit" id="uploadBtn"> Upload </button>
+        <div>
 
+            <form action="#" class="form">
+                <label class="filebutton">
+                    <div class="imageUpdate">
+                        <img class="img " id="img"
+                            src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
+                            alt="Pagal">
+                        <div class="middle">
+                            <div class="text"></div>
+                        </div>
+                    </div>
+                    <span><input class="opacityFile" type="file" id="fileInput" name="myfile"
+                            onchange="upload(); previewFile()">
+                    </span>
+                </label>
             </form>
 
-            <img id="img" src="../image/blank_user.png" alt="">
-
-            <div>
-                <h1>My profile</h1>
-            </div>
-
             <div class="profile">
-                <div>UserName : <span id="userName"></span></div>
-                <div>Email : <span id="userEmail"></span></div>
-                <div>Phone : <span id="userPhone"></span></div>
+                <div class="info">
+                    <h1>Home</h1>
+                    <div>UserName : <span id="userName"></span></div>
+                    <div>Email : <span id="userEmail"></span></div>
+                    <div>Phone : <span id="userPhone"></span></div>
+                </div>
             </div>
 
         </div>
+
+
+        <div class="button-area">
+            <div class="button">
+                <button class="logout"><a href="profile.html">My Tweet</a> </button>
+                <button class="logout"><a href="home.html">All Tweet</a> </button>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="tweet-area">
+        <div class="button-area">
+            <div class="button">
+                <button class="logout" onclick="return logout()">Log out</button>
+            </div>
+        </div>
+
         <div class="chatpp">
+
             <div>
-                <form action="">
+                <form action="#">
                     <input type="text" name="" id="message" style="margin:5px ;" placeholder="Type your message....">
                     <button class="post" onclick=" return tweet()">Post</button>
                 </form>
-
             </div>
             <div id="usertext-area">
 
             </div>
         </div>
     </div>
-
 
     <script src="app.js"></script>
 </body>
