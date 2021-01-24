@@ -283,7 +283,7 @@ socket.on('NEW_POST', (newPost) => {
     document.getElementById('text-area').innerHTML += `
     <div class="tweet">
     <img src="${tweets.profilePic}" alt="image" style="width: 50px;height: 50px;border-radius: 100%;">
-    <span>${tweets.name}<span>
+    <span calss="user-name">${tweets.name}<span>
     <p class="tweet-date">${new Date(tweets.createdOn).toLocaleTimeString()}</p>
     <p class="tweet-text">${tweets.tweet}</p>
     </div>
