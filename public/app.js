@@ -218,7 +218,7 @@ function getTweets() {
             console.log(element.profilePic)
             if(element.profilePic === undefined){
                 element.profilePic = "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
-                console.log(response.data.profilePic)
+                // console.log(response.data.profilePic)
              }
             html += `
             <div class="tweet">
@@ -253,7 +253,7 @@ function getMyTweets() {
             if (element.name === userName) {
                 if(element.profilePic === undefined){
                     element.profilePic = "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
-                    console.log(response.data.profilePic)
+                    // console.log(response.data.profilePic)
                  }
                 userHtml += `
                 <div class="tweet">
@@ -274,12 +274,16 @@ function getMyTweets() {
 }
 
 socket.on('NEW_POST', (newPost) => {
-    console.log(newPost)
+    // console.log(newPost)
     let tweets = newPost;
+    if(tweets.profilePic === undefined){
+        tweets.profilePic = "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
+        // console.log(tweets.data.profilePic)
+     }
     document.getElementById('text-area').innerHTML += `
     <div class="tweet">
-    <img src="${element.profilePic}" alt="image" style="width: 50px;height: 50px;border-radius: 100%;">
-    <span>${newPost.name}<span>
+    <img src="${tweets.profilePic}" alt="image" style="width: 50px;height: 50px;border-radius: 100%;">
+    <span>${tweets.name}<span>
     <p class="tweet-date">${new Date(tweets.createdOn).toLocaleTimeString()}</p>
     <p class="tweet-text">${tweets.tweet}</p>
     </div>

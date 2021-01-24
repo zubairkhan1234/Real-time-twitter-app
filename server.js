@@ -127,10 +127,6 @@ app.post('/tweet', (req, res, next) => {
         }
     })
 })
-
-
-
-
 app.get('/getTweets', (req, res, next) => {
 
     console.log(req.body)
