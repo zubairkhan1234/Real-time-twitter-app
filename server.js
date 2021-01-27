@@ -62,6 +62,7 @@ app.use(function (req, res, next) {
                     httpOnly: true
                 })
                 req.body.jToken = decodedData
+                req.headers.jToken = decodedData
                 next()
             }
         } else {
