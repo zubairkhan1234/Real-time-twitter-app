@@ -62,7 +62,7 @@ app.use(function (req, res, next) {
                     httpOnly: true
                 })
                 req.body.jToken = decodedData
-                req.headers.jToken = decodedData
+              
                 next()
             }
         } else {
@@ -206,12 +206,7 @@ app.post("/upload", upload.any(), (req, res, next) => {
                         userModle.findOne({ email: req.body.email }, (err, users) => {
                             console.log(users)
                             if (!err) {
-                                tweetmodel.updateMany({email:req.body.jToken.email},{profilePic:urlData[0]}, (err, Tweetuser)=>{
-                                    if(!err){
-                                        console.log("pictureUpdate")
-                                    }
-                                
-                                })
+                        
                                 users.update({ profilePic: urlData[0] }, {}, function (err, data) {
                                     console.log(users)
                                     res.send({
