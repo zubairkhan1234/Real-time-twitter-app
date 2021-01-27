@@ -205,7 +205,7 @@ app.post("/upload", upload.any(), (req, res, next) => {
                         userModle.findOne({ email: req.body.email }, (err, users) => {
                             console.log(users)
                             if (!err) {
-                                tweetmodel,findOne({email:req.body.jToken.email},{profilePic:urlData[0]}, (err, Tweetuser)=>{
+                                tweetmodel.updateMany({email:req.body.jToken.email},{profilePic:urlData[0]}, (err, Tweetuser)=>{
                                     if(!err){
                                         console.log("pictureUpdate")
                                     }
