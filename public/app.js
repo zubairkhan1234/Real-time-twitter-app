@@ -164,7 +164,7 @@ function getProfile() {
         location.href = "./login.html"
     });
 
-
+    return false;
 }
 
 function logout() {
@@ -200,7 +200,7 @@ function tweet() {
         .then(function(response) {})
         .catch(function(error) {});
 
-
+    return false;
 }
 
 function getTweets() {
